@@ -1,5 +1,5 @@
 export interface CardArticleInterface {
-  title: string;
+  title_display: string;
   journal: string;
   abstract: string;
 }

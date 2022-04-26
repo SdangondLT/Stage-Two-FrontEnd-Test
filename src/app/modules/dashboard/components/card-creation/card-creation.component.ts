@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CardArticleInterface } from 'src/app/models/card-article.model';
 
 @Component({
@@ -7,13 +7,17 @@ import { CardArticleInterface } from 'src/app/models/card-article.model';
   styleUrls: ['./card-creation.component.sass']
 })
 export class CardCreationComponent implements OnInit {
-  cardArticle: CardArticleInterface;
 
   @Output() createCardEmitter = new EventEmitter<CardArticleInterface>();
+  @Input() cardArticle: CardArticleInterface = {
+    title_display: "",
+    journal: "",
+    abstract : ""
+  };
 
   constructor() {
     this.cardArticle = {
-      title: "",
+      title_display: "",
       journal: "",
       abstract : ""
     };

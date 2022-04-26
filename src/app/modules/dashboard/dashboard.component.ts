@@ -10,11 +10,17 @@ import { ArticlesService } from '../../services/articles.service';
 export class DashboardComponent implements OnInit {
 
   articles: any = {};
+  articleToEdit: CardArticleInterface;
 
-  constructor(private service: ArticlesService) { }
+  constructor(private service: ArticlesService) {
+    this.articleToEdit = {
+      title_display: "",
+      journal: "",
+      abstract: ""
+    };
+  }
 
   ngOnInit(): void {
-    console.log("entro a ngOnInit");
     this.service.getArticles().subscribe(
       article => {this.articles = article.response.docs;
       console.log(this.articles);
@@ -22,7 +28,16 @@ export class DashboardComponent implements OnInit {
   }
 
   createCard(cardArticle: CardArticleInterface) {
-    this.articles.push(cardArticle);
+    console.log(cardArticle);
+    this.articles.unshift(cardArticle);
+  }
 
+  editCard(informationToEdit: any) {
+    this.articleToEdit = {
+      title_display: informationToEdit.title_display,
+      journal: informationToEdit.journal,
+      abstract : informationToEdit.abstract
+    };
+    console.log(informationToEdit)
   }
 }

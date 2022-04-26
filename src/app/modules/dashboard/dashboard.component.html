@@ -1,6 +1,6 @@
 <div class="content">
   <div>
-    <app-card-creation (createCardEmitter)="createCard($event)" ></app-card-creation>
+    <app-card-creation (createCardEmitter)="createCard($event)" [cardArticle]="articleToEdit" ></app-card-creation>
   </div>
   <div fxLayout="row wrap" class="content__cards">
     <div fxFlex="33%" *ngFor="let article of articles">
@@ -19,7 +19,7 @@
         </mat-card-content>
         <mat-card-actions>
           <div class="card__actions">
-            <button mat-raised-button color="primary" class="card__actions--btn">Edit</button>
+            <button mat-raised-button color="primary" class="card__actions--btn" (click)="editCard(article)">Edit</button>
             <button mat-raised-button color="accent" class="card__actions--btn">Show Abstract</button>
             <button mat-raised-button color="warn" class="card__actions--btn">Cancel</button>
           </div>
