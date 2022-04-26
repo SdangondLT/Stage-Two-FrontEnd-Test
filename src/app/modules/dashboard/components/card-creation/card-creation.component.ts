@@ -9,17 +9,20 @@ import { CardArticleInterface } from 'src/app/models/card-article.model';
 export class CardCreationComponent implements OnInit {
 
   @Output() createCardEmitter = new EventEmitter<CardArticleInterface>();
+  @Output() updateCardEmitter = new EventEmitter<CardArticleInterface>();
   @Input() cardArticle: CardArticleInterface = {
     title_display: "",
     journal: "",
-    abstract : ""
+    abstract : "",
+    id: ""
   };
 
   constructor() {
     this.cardArticle = {
       title_display: "",
       journal: "",
-      abstract : ""
+      abstract : "",
+      id: ""
     };
    }
 
@@ -30,4 +33,7 @@ export class CardCreationComponent implements OnInit {
     this.createCardEmitter.emit(this.cardArticle);
   }
 
+  updateCard(){
+    this.updateCardEmitter.emit(this.cardArticle);
+  }
 }

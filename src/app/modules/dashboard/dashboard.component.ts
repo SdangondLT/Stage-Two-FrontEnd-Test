@@ -16,7 +16,8 @@ export class DashboardComponent implements OnInit {
     this.articleToEdit = {
       title_display: "",
       journal: "",
-      abstract: ""
+      abstract: "",
+      id: ""
     };
   }
 
@@ -28,6 +29,7 @@ export class DashboardComponent implements OnInit {
   }
 
   createCard(cardArticle: CardArticleInterface) {
+    cardArticle.id = this.articles.length + 1;
     console.log(cardArticle);
     this.articles.unshift(cardArticle);
   }
@@ -36,8 +38,18 @@ export class DashboardComponent implements OnInit {
     this.articleToEdit = {
       title_display: informationToEdit.title_display,
       journal: informationToEdit.journal,
-      abstract : informationToEdit.abstract
+      abstract: informationToEdit.abstract,
+      id: informationToEdit.id
     };
     console.log(informationToEdit)
+  }
+
+  updateCard(informationToUpdate: CardArticleInterface) {
+    let articleToFind: any;
+    articleToFind = this.articles.find((item: any) => item.id === informationToUpdate.id )
+    articleToFind.title_display = informationToUpdate.title_display;
+    articleToFind.journal = informationToUpdate.journal;
+    articleToFind.abstract = informationToUpdate.abstract;
+    console.log(articleToFind)
   }
 }
