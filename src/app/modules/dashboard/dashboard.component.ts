@@ -18,7 +18,8 @@ export class DashboardComponent implements OnInit {
       journal: "",
       abstract: "",
       id: "",
-      isEdit: false
+      isEdit: false,
+      showAbstract: true
     };
   }
 
@@ -26,7 +27,6 @@ export class DashboardComponent implements OnInit {
     this.service.getArticles().subscribe(
       article => {
         this.articles = article.response.docs;
-        console.log("articles-->", this.articles);
     })
   }
 
@@ -43,9 +43,9 @@ export class DashboardComponent implements OnInit {
       journal: informationToEdit.journal,
       abstract: informationToEdit.abstract,
       id: informationToEdit.id,
-      isEdit: informationToEdit.isEdit
+      isEdit: informationToEdit.isEdit,
+      showAbstract: true
     };
-    console.log(informationToEdit)
   }
 
   updateCard(informationToUpdate: CardArticleInterface) {
@@ -55,6 +55,30 @@ export class DashboardComponent implements OnInit {
     articleToFind.journal = informationToUpdate.journal;
     articleToFind.abstract = informationToUpdate.abstract;
     articleToFind.isEdit = false;
-    console.log(articleToFind)
+    articleToFind.showAbstract = true;
+  }
+
+  changeAbstract(cardArticle: CardArticleInterface) {
+    cardArticle.showAbstract = !cardArticle.showAbstract;
+  }
+
+  cancelEditCard(cardArticle: CardArticleInterface){
+    cardArticle.isEdit = false;
+    this.articleToEdit = {
+      title_display: "",
+      journal: "",
+      abstract: "",
+      id: "",
+      isEdit: false,
+      showAbstract: true
+    }
+  }
+
+  deleteCard(cardArticle: CardArticleInterface){
+    let infoToDelete: any;
+    infoToDelete = this.articles.filter(function(item: any) {
+      return item.id != cardArticle.id;
+    } )
+    this.articles = infoToDelete;
   }
 }

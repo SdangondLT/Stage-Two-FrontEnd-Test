@@ -5,6 +5,8 @@
   <div fxLayout="row wrap" class="content__cards">
     <div fxFlex="33%" *ngFor="let article of articles">
       <mat-card class="content__cards--card" [ngClass]="(article.isEdit)? 'content__cards--cardEdit' : 'content__cards--card'">
+        <button class="content__cards--card--close" mat-button (click)="deleteCard(article)">X</button>
+
         <mat-card-header>
           <mat-card-title>{{article.title_display}}</mat-card-title>
           <mat-card-subtitle>{{article.journal}}</mat-card-subtitle>
@@ -13,15 +15,18 @@
         <img mat-card-image *ngIf="article.journal.toUpperCase().includes('PLOS')" src="../../../assets/img/descarga.png"/>
         <img mat-card-image *ngIf="!article.journal.toUpperCase().includes('PLOS')" src="../../../assets/img/not_found.png"/>
         <mat-card-content>
-          <p>
+          <p *ngIf="!article.showAbstract">
             {{article.abstract}}
+          </p>
+          <p *ngIf="article.showAbstract">
+            Please, click on 'Show Abstract' button for show the abstract of the article.
           </p>
         </mat-card-content>
         <mat-card-actions>
           <div class="div__actions">
-            <button mat-raised-button color="primary" class="div__actions--btn" (click)="editCard(article)" [ngClass]="(article.isEdit)? 'div__actions--classEdit' : 'card__actions--sinEdit'">Edit</button>
-            <button mat-raised-button color="accent" class="div__actions--btn">Show Abstract</button>
-            <button mat-raised-button color="warn" class="div__actions--btn">Cancel</button>
+            <button mat-raised-button color="primary" class="div__actions--btn" (click)="editCard(article)" [ngClass]="(article.isEdit)? 'div__actions--classEdit' : 'div__actions--sinEdit'">Edit</button>
+            <button mat-raised-button color="accent" class="div__actions--btn" (click)="changeAbstract(article)">Show Abstract</button>
+            <button mat-raised-button color="warn" class="div__actions--btn " (click)="cancelEditCard(article)" [ngClass]="(article.isEdit)? 'div__actions--cancelEditCard' : 'div__actions--withoutCancelEditCard'">Cancel</button>
           </div>
         </mat-card-actions>
       </mat-card>

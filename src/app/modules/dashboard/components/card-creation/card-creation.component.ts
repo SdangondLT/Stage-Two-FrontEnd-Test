@@ -15,7 +15,8 @@ export class CardCreationComponent implements OnInit {
     journal: "",
     abstract : "",
     id: "",
-    isEdit: false
+    isEdit: false,
+    showAbstract: true
   };
 
   constructor() {
@@ -24,7 +25,8 @@ export class CardCreationComponent implements OnInit {
       journal: "",
       abstract : "",
       id: "",
-      isEdit: false
+      isEdit: false,
+      showAbstract: true
     };
    }
 
