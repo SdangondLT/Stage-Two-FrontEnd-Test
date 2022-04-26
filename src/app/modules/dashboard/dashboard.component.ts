@@ -17,14 +17,16 @@ export class DashboardComponent implements OnInit {
       title_display: "",
       journal: "",
       abstract: "",
-      id: ""
+      id: "",
+      isEdit: false
     };
   }
 
   ngOnInit(): void {
     this.service.getArticles().subscribe(
-      article => {this.articles = article.response.docs;
-      console.log(this.articles);
+      article => {
+        this.articles = article.response.docs;
+        console.log("articles-->", this.articles);
     })
   }
 
@@ -35,11 +37,13 @@ export class DashboardComponent implements OnInit {
   }
 
   editCard(informationToEdit: any) {
+    informationToEdit.isEdit = true;
     this.articleToEdit = {
       title_display: informationToEdit.title_display,
       journal: informationToEdit.journal,
       abstract: informationToEdit.abstract,
-      id: informationToEdit.id
+      id: informationToEdit.id,
+      isEdit: informationToEdit.isEdit
     };
     console.log(informationToEdit)
   }
@@ -50,6 +54,7 @@ export class DashboardComponent implements OnInit {
     articleToFind.title_display = informationToUpdate.title_display;
     articleToFind.journal = informationToUpdate.journal;
     articleToFind.abstract = informationToUpdate.abstract;
+    articleToFind.isEdit = false;
     console.log(articleToFind)
   }
 }

@@ -4,7 +4,7 @@
   </div>
   <div fxLayout="row wrap" class="content__cards">
     <div fxFlex="33%" *ngFor="let article of articles">
-      <mat-card class="content__cards--card">
+      <mat-card class="content__cards--card" [ngClass]="(article.isEdit)? 'content__cards--cardEdit' : 'content__cards--card'">
         <mat-card-header>
           <mat-card-title>{{article.title_display}}</mat-card-title>
           <mat-card-subtitle>{{article.journal}}</mat-card-subtitle>
@@ -18,10 +18,10 @@
           </p>
         </mat-card-content>
         <mat-card-actions>
-          <div class="card__actions">
-            <button mat-raised-button color="primary" class="card__actions--btn" (click)="editCard(article)">Edit</button>
-            <button mat-raised-button color="accent" class="card__actions--btn">Show Abstract</button>
-            <button mat-raised-button color="warn" class="card__actions--btn">Cancel</button>
+          <div class="div__actions">
+            <button mat-raised-button color="primary" class="div__actions--btn" (click)="editCard(article)" [ngClass]="(article.isEdit)? 'div__actions--classEdit' : 'card__actions--sinEdit'">Edit</button>
+            <button mat-raised-button color="accent" class="div__actions--btn">Show Abstract</button>
+            <button mat-raised-button color="warn" class="div__actions--btn">Cancel</button>
           </div>
         </mat-card-actions>
       </mat-card>

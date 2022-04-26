@@ -14,7 +14,8 @@ export class CardCreationComponent implements OnInit {
     title_display: "",
     journal: "",
     abstract : "",
-    id: ""
+    id: "",
+    isEdit: false
   };
 
   constructor() {
@@ -22,7 +23,8 @@ export class CardCreationComponent implements OnInit {
       title_display: "",
       journal: "",
       abstract : "",
-      id: ""
+      id: "",
+      isEdit: false
     };
    }
 

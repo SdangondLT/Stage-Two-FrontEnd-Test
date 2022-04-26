@@ -3,4 +3,5 @@ export interface CardArticleInterface {
   journal: string;
   abstract: string;
   id: string;
+  isEdit: boolean;
 }
