@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CardArticleInterface } from 'src/app/models/card-article.model';
+import Swal from 'sweetalert2';
 import { ArticlesService } from '../../services/articles.service';
 
 @Component({
@@ -7,8 +8,8 @@ import { ArticlesService } from '../../services/articles.service';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.sass']
 })
-export class DashboardComponent implements OnInit {
 
+export class DashboardComponent implements OnInit {
   articles: any = {};
   articleToEdit: CardArticleInterface;
 
@@ -43,7 +44,7 @@ export class DashboardComponent implements OnInit {
     console.log("los id", cardArticle.id)
 
     cardArticle.showAbstract = false;
-    this.articles.push(cardArticle);
+    this.articles.unshift(cardArticle);
   }
 
   editCard(informationToEdit: any) {
@@ -86,10 +87,27 @@ export class DashboardComponent implements OnInit {
   }
 
   deleteCard(cardArticle: CardArticleInterface){
-    let infoToDelete: any;
-    infoToDelete = this.articles.filter(function(item: any) {
-      return item.id != cardArticle.id;
-    } )
-    this.articles = infoToDelete;
+    Swal.fire({
+      title: 'Do you want to delete the card?',
+      showCancelButton: true,
+      confirmButtonText: 'Delete'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire('Delete!', '', 'success')
+        let infoToDelete: any;
+        infoToDelete = this.articles.filter(function(item: any) {
+          return item.id != cardArticle.id;
+        } )
+        this.articles = infoToDelete;
+      } else if (result.isDenied) {
+        Swal.fire('Changes are not saved', '', 'info')
+      }
+    })
+
+    // let infoToDelete: any;
+    // infoToDelete = this.articles.filter(function(item: any) {
+    //   return item.id != cardArticle.id;
+    // } )
+    // this.articles = infoToDelete;
   }
 }

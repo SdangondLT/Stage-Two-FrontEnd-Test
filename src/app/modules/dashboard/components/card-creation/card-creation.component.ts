@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { CardArticleInterface } from 'src/app/models/card-article.model';
 
 @Component({
@@ -6,7 +6,7 @@ import { CardArticleInterface } from 'src/app/models/card-article.model';
   templateUrl: './card-creation.component.html',
   styleUrls: ['./card-creation.component.sass']
 })
-export class CardCreationComponent implements OnInit {
+export class CardCreationComponent implements OnInit, OnChanges {
 
   @Output() createCardEmitter = new EventEmitter<CardArticleInterface>();
   @Output() updateCardEmitter = new EventEmitter<CardArticleInterface>();
@@ -33,7 +33,11 @@ export class CardCreationComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  createCard (){
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log('changes', changes);
+  }
+
+  createCard(){
     this.createCardEmitter.emit(this.cardArticle);
   }
 
