@@ -1,16 +1,19 @@
-<!-- <mat-form-field appearance="fill">
-  <mat-label>Input</mat-label>
-  <input matInput>
-</mat-form-field>
-<mat-form-field appearance="fill">
-  <mat-label>Select</mat-label>
-  <mat-select>
-    <mat-option value="one">First option</mat-option>
-    <mat-option value="two">Second option</mat-option>
-  </mat-select>
-</mat-form-field>
-<mat-form-field appearance="fill">
-  <mat-label>Textarea</mat-label>
-  <textarea matInput></textarea>
-</mat-form-field> -->
-
+<div class="container">
+  <h2 class="container__title">Publish Your Research </h2>
+  <mat-form-field appearance="fill">
+    <mat-label>Title</mat-label>
+    <input matInput [(ngModel)]="cardArticle.title">
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Journal</mat-label>
+    <input matInput [(ngModel)]="cardArticle.journal">
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Abstract</mat-label>
+    <textarea matInput [(ngModel)]="cardArticle.abstract"></textarea>
+  </mat-form-field>
+  <div class="container__div">
+    <button mat-raised-button color="primary" class="container__div--button" (click)="createCard()">Add</button>
+    <button mat-raised-button color="accent" class="container__div--button">Edit</button>
+  </div>
+</div>

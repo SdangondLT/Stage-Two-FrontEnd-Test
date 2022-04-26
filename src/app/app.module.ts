@@ -11,9 +11,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { HttpClientModule } from '@angular/common/http';
 
-//import { SharedModule } from './shared/shared.module';
-
-
 @NgModule({
   declarations: [
     AppComponent,

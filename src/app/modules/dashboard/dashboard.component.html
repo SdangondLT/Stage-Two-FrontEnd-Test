@@ -1,56 +1,30 @@
-
 <div class="content">
   <div>
-    <app-card-creation></app-card-creation>>
+    <app-card-creation (createCardEmitter)="createCard($event)" ></app-card-creation>
   </div>
-
-  <div fxLayout="row wrap">
+  <div fxLayout="row wrap" class="content__cards">
     <div fxFlex="33%" *ngFor="let article of articles">
-      <mat-card class="example-card">
+      <mat-card class="content__cards--card">
         <mat-card-header>
           <mat-card-title>{{article.title_display}}</mat-card-title>
           <mat-card-subtitle>{{article.journal}}</mat-card-subtitle>
         </mat-card-header>
-        <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+
+        <img mat-card-image *ngIf="article.journal.toUpperCase().includes('PLOS')" src="../../../assets/img/descarga.png"/>
+        <img mat-card-image *ngIf="!article.journal.toUpperCase().includes('PLOS')" src="../../../assets/img/not_found.png"/>
         <mat-card-content>
-          <p ngClass="">
+          <p>
             {{article.abstract}}
           </p>
         </mat-card-content>
         <mat-card-actions>
-          <button mat-button>LIKE</button>
-          <button mat-button>SHARE</button>
+          <div class="card__actions">
+            <button mat-raised-button color="primary" class="card__actions--btn">Edit</button>
+            <button mat-raised-button color="accent" class="card__actions--btn">Show Abstract</button>
+            <button mat-raised-button color="warn" class="card__actions--btn">Cancel</button>
+          </div>
         </mat-card-actions>
       </mat-card>
     </div>
   </div>
-
 </div>
-
-<!-- <div class="container">
-
-  <div>
-    <mat-grid-list cols="2" rowHeight="700px">
-      <mat-grid-tile [colspan]="1" [rowspan]="1" *ngFor="let article of articles">
-
-        <mat-card class="example-card">
-          <mat-card-header>
-            <mat-card-title>{{article.title_display}}</mat-card-title>
-            <mat-card-subtitle>{{article.journal}}</mat-card-subtitle>
-          </mat-card-header>
-          <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-          <mat-card-content>
-            <p ngClass="">
-              {{article.abstract}}
-            </p>
-          </mat-card-content>
-          <mat-card-actions>
-            <button mat-button>LIKE</button>
-            <button mat-button>SHARE</button>
-          </mat-card-actions>
-        </mat-card>
-
-      </mat-grid-tile>
-    </mat-grid-list>
-  </div>
-</div> -->

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CardArticleInterface } from 'src/app/models/card-article.model';
 import { ArticlesService } from '../../services/articles.service';
 
 @Component({
@@ -18,5 +19,10 @@ export class DashboardComponent implements OnInit {
       article => {this.articles = article.response.docs;
       console.log(this.articles);
     })
+  }
+
+  createCard(cardArticle: CardArticleInterface) {
+    this.articles.push(cardArticle);
+
   }
 }
