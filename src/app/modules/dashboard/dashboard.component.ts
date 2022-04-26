@@ -31,12 +31,23 @@ export class DashboardComponent implements OnInit {
   }
 
   createCard(cardArticle: CardArticleInterface) {
+    let articleOld: any;
+    articleOld = this.articles.find((item: any) => item.id === cardArticle.id )
+    console.log("articleOld", articleOld)
+    if(articleOld){
+      articleOld.isEdit = false;
+      articleOld.showAbstract = false;
+    }
+    cardArticle.isEdit = false;
     cardArticle.id = this.articles.length + 1;
-    console.log(cardArticle);
-    this.articles.unshift(cardArticle);
+    console.log("los id", cardArticle.id)
+
+    cardArticle.showAbstract = false;
+    this.articles.push(cardArticle);
   }
 
   editCard(informationToEdit: any) {
+    console.log("hi", informationToEdit)
     informationToEdit.isEdit = true;
     this.articleToEdit = {
       title_display: informationToEdit.title_display,

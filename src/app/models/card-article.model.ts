@@ -5,4 +5,4 @@ export interface CardArticleInterface {
   id: string;
   isEdit: boolean;
   showAbstract: boolean;
-}
+};

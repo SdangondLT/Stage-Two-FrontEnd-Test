@@ -13,7 +13,7 @@
     <textarea matInput [(ngModel)]="cardArticle.abstract"></textarea>
   </mat-form-field>
   <div class="container__div">
-    <button mat-raised-button color="primary" class="container__div--button" (click)="createCard()">Add</button>
-    <button mat-raised-button color="accent" class="container__div--button" (click)="updateCard()">Update</button>
+    <button mat-raised-button color="primary" class="container__div--button" (click)="createCard()" [ngClass]="(cardArticle.isEdit)? 'container__div--displayNone' : 'container__div--displayBlock'">Add</button>
+    <button mat-raised-button color="accent" class="container__div--button" (click)="createCard()" [ngClass]="(!cardArticle.isEdit)? 'container__div--displayNone' : 'container__div--displayBlock'">Update</button>
   </div>
 </div>
