@@ -103,11 +103,5 @@ export class DashboardComponent implements OnInit {
         Swal.fire('Changes are not saved', '', 'info')
       }
     })
-
-    // let infoToDelete: any;
-    // infoToDelete = this.articles.filter(function(item: any) {
-    //   return item.id != cardArticle.id;
-    // } )
-    // this.articles = infoToDelete;
   }
 }

@@ -1,6 +1,6 @@
 <div class="content">
   <div>
-    <app-card-creation (createCardEmitter)="createCard($event)" (updateCardEmitter)="updateCard($event)" [cardArticle]="articleToEdit" ></app-card-creation>
+    <app-card-creation (createCardEmitter)="createCard($event)" (updateCardEmitter)="updateCard($event)" [cardArticle]="articleToEdit"></app-card-creation>
   </div>
   <div fxLayout="row wrap" class="content__cards">
     <div fxFlex="33%" *ngFor="let article of articles">
