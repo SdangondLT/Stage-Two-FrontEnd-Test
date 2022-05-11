@@ -1,12 +1,12 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { CardArticleInterface } from 'src/app/models/card-article.model';
 
 @Component({
-  selector: 'app-card-creation',
-  templateUrl: './card-creation.component.html',
-  styleUrls: ['./card-creation.component.sass']
+  selector: 'app-form',
+  templateUrl: './form.component.html',
+  styleUrls: ['./form.component.sass']
 })
-export class CardCreationComponent implements OnInit, OnChanges {
+export class FormComponent implements OnInit {
 
   @Output() createCardEmitter = new EventEmitter<CardArticleInterface>();
   @Output() updateCardEmitter = new EventEmitter<CardArticleInterface>();
@@ -44,4 +44,5 @@ export class CardCreationComponent implements OnInit, OnChanges {
   updateCard(){
     this.updateCardEmitter.emit(this.cardArticle);
   }
+
 }

@@ -1,9 +1,43 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { MainLayoutComponent } from './main-layout.component';
 
 const routes: Routes = [
-  {path: '', component: ToolbarComponent}
+  {
+    path: '',
+    component: MainLayoutComponent,
+    children: [
+      {
+        path: "",
+        pathMatch:"full",
+        redirectTo: "dashboard",
+      },
+      {
+       path: "dashboard",
+       pathMatch: "full",
+       loadChildren: () =>
+        import("../../modules/dashboard/dashboard.module").then(
+          (m) => m.DashboardModule
+        )
+      },
+      {
+        path: "profile",
+        pathMatch: "full",
+        loadChildren: () =>
+         import("../../modules/profile/profile.module").then(
+           (m) => m.ProfileModule
+         )
+       },
+       {
+        path: "schedule",
+        pathMatch: "full",
+        loadChildren: () =>
+         import("../../modules/schedule/schedule.module").then(
+           (m) => m.ScheduleModule
+         )
+      }
+    ]
+  }
 ];
 
 @NgModule({
