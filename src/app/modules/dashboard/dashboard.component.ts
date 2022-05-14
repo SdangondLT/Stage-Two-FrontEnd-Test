@@ -62,7 +62,12 @@ export class DashboardComponent implements OnInit {
 
   addArticle(payload: ArticleModel){
     const articleId = Object.assign(payload, {id: this.articleList.length})
-    this.articleList.push(payload);
+    this.articleList.push(articleId);
+    console.log('this.articleList', this.articleList)
   }
 
+  deleteCard(id: number){
+    const index = this.articleList.findIndex((element) => element.id === id);
+    this.articleList.splice(index, 1);
+  }
 }

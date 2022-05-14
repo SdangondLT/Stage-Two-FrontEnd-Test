@@ -4,19 +4,34 @@
       <span>{{article.title}}</span>
       <span>Journal: {{article.journal}}</span>
     </div>
-    <div class="card__close">
-      X
-    </div>
+    <mat-icon class="card__close" (click)="deleteCard()">
+      close
+    </mat-icon>
   </div>
   <div class="card__image--container">
     <img [src]="getImageSource()" alt="image">
   </div>
   <div class="card__abstract">
-    {{article.abstract | slice: 0: 500}}
+    <div [@showHide]="isShowingAbstract ? 'shoe' : 'hide'">
+      {{article.abstract | slice: 0 : 500}}
+    </div>
+    <div [@showHide]="!isShowingAbstract ? 'shoe' : 'hide'">
+      Please, click on 'Show Abstract
+    </div>
   </div>
   <div class="card__buttons">
-    <button *ngIf="!article.isEditing" mat-raised-button color="primary" (click)="editArticle()">Edit</button>
-    <button mat-raised-button color="accent">Show Abstract</button>
-    <button *ngIf="article.isEditing" mat-raised-button color="warm" (click)="cancelEdit()">Cancel</button>
+    <button *ngIf="!article.isEditing"
+      mat-raised-button color="primary"
+      (click)="editArticle()">Edit
+    </button>
+    <button mat-raised-button
+      color="{{isShowingAbstract ? 'basic' : 'accent'}}"
+      (click)="showAbstract()">
+      {{isShowingAbstract ? 'Hide Abstract' : 'Show Abstract'}}
+    </button>
+    <button *ngIf="article.isEditing"
+      mat-raised-button color="warm"
+      (click)="cancelEdit()">Cancel
+    </button>
   </div>
 </div>

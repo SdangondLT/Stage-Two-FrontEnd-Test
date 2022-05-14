@@ -52,5 +52,8 @@ export class FormComponent implements OnInit, OnChanges {
       isEditing: false
     }
     this.addArticleEmitter.emit(payload);
+    this.articleTitle = '';
+    this.articleJournal = '';
+    this.articleAbstract = '';
   }
 }

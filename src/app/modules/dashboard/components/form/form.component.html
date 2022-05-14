@@ -17,6 +17,9 @@
   </mat-form-field>
 
   <div class="container__div">
-    <button mat-raised-button color="{{changeBtn ? 'accent' : 'primary'}}" (click)="addArticle()">{{changeBtn ? 'Update' : 'Add'}}</button>
+    <button [disabled]="articleTitle === '' || articleJournal === '' || articleAbstract === '' "
+      mat-raised-button color="{{changeBtn ? 'accent' : 'primary'}}"
+      (click)="addArticle()">{{changeBtn ? 'Update' : 'Add'}}
+    </button>
   </div>
 </div>
