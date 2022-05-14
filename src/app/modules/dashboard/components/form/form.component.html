@@ -3,21 +3,20 @@
 
   <mat-form-field appearance="fill">
     <mat-label>Title</mat-label>
-    <input matInput [(ngModel)]="cardArticle.title_display">
+    <input matInput [(ngModel)]="articleTitle">
   </mat-form-field>
 
   <mat-form-field appearance="fill">
     <mat-label>Journal</mat-label>
-    <input matInput [(ngModel)]="cardArticle.journal">
+    <input matInput [(ngModel)]="articleJournal">
   </mat-form-field>
 
   <mat-form-field appearance="fill">
     <mat-label>Abstract</mat-label>
-    <textarea matInput [(ngModel)]="cardArticle.abstract"></textarea>
+    <textarea matInput [(ngModel)]="articleAbstract"></textarea>
   </mat-form-field>
 
   <div class="container__div">
-    <button mat-raised-button color="primary" class="container__div--button" (click)="createCard()" [ngClass]="(cardArticle.isEdit)? 'container__div--displayNone' : 'container__div--displayBlock'">Add</button>
-    <!-- <button mat-raised-button color="accent" class="container__div--button" (click)="createCard()" [ngClass]="(!cardArticle.isEdit)? 'container__div--displayNone' : 'container__div--displayBlock'">Update</button> -->
+    <button mat-raised-button color="{{changeBtn ? 'accent' : 'primary'}}" (click)="addArticle()">{{changeBtn ? 'Update' : 'Add'}}</button>
   </div>
 </div>

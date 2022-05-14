@@ -1,1 +1,22 @@
-<p>card works!</p>
+<div class="card" [ngClass]="{'card__border--red' : article.isEditing}">
+  <div class="card__header">
+    <div class="card__title--subtitle">
+      <span>{{article.title}}</span>
+      <span>Journal: {{article.journal}}</span>
+    </div>
+    <div class="card__close">
+      X
+    </div>
+  </div>
+  <div class="card__image--container">
+    <img [src]="getImageSource()" alt="image">
+  </div>
+  <div class="card__abstract">
+    {{article.abstract | slice: 0: 500}}
+  </div>
+  <div class="card__buttons">
+    <button *ngIf="!article.isEditing" mat-raised-button color="primary" (click)="editArticle()">Edit</button>
+    <button mat-raised-button color="accent">Show Abstract</button>
+    <button *ngIf="article.isEditing" mat-raised-button color="warm" (click)="cancelEdit()">Cancel</button>
+  </div>
+</div>

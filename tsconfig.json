@@ -6,9 +6,10 @@
     "paths": {
       "@app-modules/*": ["src/app/modules/*"],
       "@app-services/*": ["src/app/services/*"],
+      "@app-models/*": ["src/app/models/*"],
+      "@environments/*": ["src/environments/*"],
       "@shared/*": ["src/app/shared/*"],
       "@assets/*": ["src/assets/*"],
-      "@environments/*": ["src/environments/*"]
     },
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,

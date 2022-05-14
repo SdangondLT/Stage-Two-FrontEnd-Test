@@ -1,48 +1,56 @@
-import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
-import { CardArticleInterface } from 'src/app/models/card-article.model';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { ArticleModel, ArticleResponseModel } from 'src/app/models/card-article.model';
 
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.sass']
 })
-export class FormComponent implements OnInit {
+export class FormComponent implements OnInit, OnChanges {
+  articleTitle: string;
+  articleJournal: string;
+  articleAbstract: string;
+  changeBtn: boolean;
 
-  @Output() createCardEmitter = new EventEmitter<CardArticleInterface>();
-  @Output() updateCardEmitter = new EventEmitter<CardArticleInterface>();
-  @Input() cardArticle: CardArticleInterface = {
-    title_display: "",
-    journal: "",
-    abstract : "",
-    id: "",
-    isEdit: false,
-    showAbstract: true
-  };
+  @Input() editingArticle: ArticleModel;
+  @Output() addArticleEmitter = new EventEmitter<ArticleModel>();
 
   constructor() {
-    this.cardArticle = {
-      title_display: "",
-      journal: "",
-      abstract : "",
-      id: "",
-      isEdit: false,
-      showAbstract: true
-    };
-   }
+    this.editingArticle = {
+      id: 0,
+      title: '',
+      journal: '',
+      abstract: '',
+      isEditing: false
+    }
+    this.articleTitle = '';
+    this.articleJournal = '';
+    this.articleAbstract = '';
+    this.changeBtn = false;
+  }
 
   ngOnInit(): void {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('changes', changes);
+    console.log("onchanges", changes)
+    const data = changes['editingArticle'].currentValue;
+    if(data){
+      this.articleTitle = data.title;
+      this.articleJournal = data.journal;
+      this.articleAbstract = data.abstract;
+      this.changeBtn = data.isEditing;
+    }
   }
 
-  createCard(){
-    this.createCardEmitter.emit(this.cardArticle);
+  addArticle(){
+    const payload ={
+      id: 0,
+      title: this.articleTitle,
+      journal: this.articleJournal,
+      abstract: this.articleAbstract,
+      isEditing: false
+    }
+    this.addArticleEmitter.emit(payload);
   }
-
-  updateCard(){
-    this.updateCardEmitter.emit(this.cardArticle);
-  }
-
 }
