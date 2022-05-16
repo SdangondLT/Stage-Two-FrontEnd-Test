@@ -1,16 +1,12 @@
 <form [formGroup]="cardForm" class="card" [ngClass]="{'card__border--red' : article.isEditing}">
   <div class="card__header">
     <div class="card__title--subtitle">
-      <label for="">
-        <input type="text" formControlName="title" placeholder="title">
-
-        <span>{{article.title}}</span>
+      <label for="title">
+        <input id="title" type="text" formControlName="title">
       </label>
 
-      <label for="">
-        <input type="text" formControlName="journal" placeholder="journal">
-
-        <span >Journal: {{article.journal}}</span>
+      <label for="journal">
+        <input id="journal" type="text" formControlName="journal" >
       </label>
     </div>
     <mat-icon class="card__close" (click)="deleteCard()">
@@ -21,14 +17,14 @@
     <img [src]="getImageSource()" alt="image">
   </div>
   <div class="card__abstract">
-    <label for="">
-      <input type="text" formControlName="abstract" placeholder="abstract">
+    <label for="abstract">
+      <input id="abstract" type="text" formControlName="abstract" >
 
       <div  [@showHide]="isShowingAbstract ? 'shoe' : 'hide'">
-        {{article.abstract | slice: 0 : 500}}
+        <!-- {{article.abstract | slice: 0 : 500}} -->
       </div>
       <div [@showHide]="!isShowingAbstract ? 'shoe' : 'hide'">
-        Please, click on 'Show Abstract
+        <!-- Please, click on 'Show Abstract -->
       </div>
     </label>
 
@@ -49,6 +45,7 @@
     </button>
   </div>
 </form>
+
 
 
 <!-- <div class="card" [ngClass]="{'card__border--red' : article.isEditing}">

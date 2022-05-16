@@ -1,5 +1,5 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup } from '@shared/angular-material/index';
 import { ArticleModel } from '@app-models/card-article.model';
 
@@ -23,17 +23,23 @@ import { ArticleModel } from '@app-models/card-article.model';
   ]
 })
 
-export class CardComponent implements OnInit {
+export class CardComponent implements OnChanges {
 
+  dataSource: ArticleModel;
   isShowingAbstract: boolean;
   @Input() article: ArticleModel;
   @Output() editArticleEmitter =  new EventEmitter<number>();
   @Output() cancelEditingEmitter =  new EventEmitter<number>();
   @Output() deleteCardEmitter =  new EventEmitter<number>();
 
-  cardForm: FormGroup;
+  cardForm = this.fb.group({
+    title: [''],
+    journal: [''],
+    abstract: ['']
+  });
 
-  constructor(private formBuilder: FormBuilder) {
+
+  constructor(private fb: FormBuilder) {
     this.article = {
       id: 0,
       title: "",
@@ -41,18 +47,33 @@ export class CardComponent implements OnInit {
       abstract: "",
       isEditing: false
     }
+    this.dataSource = {
+      id: 0,
+      title: "",
+      journal: "",
+      abstract: "",
+      isEditing: false
+    };
     this.isShowingAbstract = true;
-    this.cardForm = this.formBuilder.group({
-      articles: this.formBuilder.array([]),
-    });
   }
 
-  ngOnInit(): void {
-    this.cardForm = this.formBuilder.group({
-      title: [''],
-      journal: [''],
-      abstract: ['']
-    })
+  ngOnInit(): void{
+    this.dataSource = this.article;
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if(changes['article']){
+      this.dataSource = changes['article'].currentValue;
+      this.modifyCard(this.dataSource);
+    }
+  }
+
+  modifyCard(data: ArticleModel){
+    return this.cardForm = this.fb.group({
+      title: [data.title],
+      journal: [data.journal],
+      abstract: [data.abstract]
+    });
   }
 
 
@@ -75,4 +96,8 @@ export class CardComponent implements OnInit {
   showAbstract(){
     this.isShowingAbstract = !this.isShowingAbstract;
   }
+
+  // get title() {
+  //   return this.cardForm.get('title');
+  // }
 }
