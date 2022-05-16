@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
-import { FlexLayoutModule, FormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule} from '@shared/angular-material/index';
+import { FlexLayoutModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule } from '@shared/angular-material/index';
 import { FormComponent } from './components/form/form.component';
 import { CardComponent } from './components/card/card.component';
 
@@ -18,6 +18,7 @@ import { CardComponent } from './components/card/card.component';
     DashboardRoutingModule,
     FlexLayoutModule,
     FormsModule,
+    ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,

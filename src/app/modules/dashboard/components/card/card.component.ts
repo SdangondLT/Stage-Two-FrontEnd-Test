@@ -1,5 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup } from '@shared/angular-material/index';
 import { ArticleModel } from '@app-models/card-article.model';
 
 @Component({
@@ -30,7 +31,9 @@ export class CardComponent implements OnInit {
   @Output() cancelEditingEmitter =  new EventEmitter<number>();
   @Output() deleteCardEmitter =  new EventEmitter<number>();
 
-  constructor() {
+  cardForm: FormGroup;
+
+  constructor(private formBuilder: FormBuilder) {
     this.article = {
       id: 0,
       title: "",
@@ -39,10 +42,19 @@ export class CardComponent implements OnInit {
       isEditing: false
     }
     this.isShowingAbstract = true;
+    this.cardForm = this.formBuilder.group({
+      articles: this.formBuilder.array([]),
+    });
   }
 
   ngOnInit(): void {
+    this.cardForm = this.formBuilder.group({
+      title: [''],
+      journal: [''],
+      abstract: ['']
+    })
   }
+
 
   getImageSource(){
     return this.article.journal.toLowerCase().includes("plos one") ? "assets/img/plos-one.png" : "assets/img/not_found.png"

@@ -1,4 +1,57 @@
-<div class="card" [ngClass]="{'card__border--red' : article.isEditing}">
+<form [formGroup]="cardForm" class="card" [ngClass]="{'card__border--red' : article.isEditing}">
+  <div class="card__header">
+    <div class="card__title--subtitle">
+      <label for="">
+        <input type="text" formControlName="title" placeholder="title">
+
+        <span>{{article.title}}</span>
+      </label>
+
+      <label for="">
+        <input type="text" formControlName="journal" placeholder="journal">
+
+        <span >Journal: {{article.journal}}</span>
+      </label>
+    </div>
+    <mat-icon class="card__close" (click)="deleteCard()">
+      close
+    </mat-icon>
+  </div>
+  <div class="card__image--container">
+    <img [src]="getImageSource()" alt="image">
+  </div>
+  <div class="card__abstract">
+    <label for="">
+      <input type="text" formControlName="abstract" placeholder="abstract">
+
+      <div  [@showHide]="isShowingAbstract ? 'shoe' : 'hide'">
+        {{article.abstract | slice: 0 : 500}}
+      </div>
+      <div [@showHide]="!isShowingAbstract ? 'shoe' : 'hide'">
+        Please, click on 'Show Abstract
+      </div>
+    </label>
+
+  </div>
+  <div class="card__buttons">
+    <button *ngIf="!article.isEditing"
+      mat-raised-button color="primary"
+      (click)="editArticle()">Edit
+    </button>
+    <button mat-raised-button
+      color="{{isShowingAbstract ? 'basic' : 'accent'}}"
+      (click)="showAbstract()">
+      {{isShowingAbstract ? 'Hide Abstract' : 'Show Abstract'}}
+    </button>
+    <button *ngIf="article.isEditing"
+      mat-raised-button color="warm"
+      (click)="cancelEdit()">Cancel
+    </button>
+  </div>
+</form>
+
+
+<!-- <div class="card" [ngClass]="{'card__border--red' : article.isEditing}">
   <div class="card__header">
     <div class="card__title--subtitle">
       <span>{{article.title}}</span>
@@ -34,4 +87,4 @@
       (click)="cancelEdit()">Cancel
     </button>
   </div>
-</div>
+</div> -->
