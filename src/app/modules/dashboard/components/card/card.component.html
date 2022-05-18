@@ -25,10 +25,10 @@
       </div>
 
       <div class="card__abstract">
-        <div [@showHide]="isShowingAbstract ? 'show' : 'hide'">
+        <div [@showHide]="!articleList[i].isShowingAbstract ? 'show' : 'hide'">
           <textarea cols="30" rows="15" matInput formControlName="abstract"></textarea>
         </div>
-        <div class="card__abstract--noShowAbstract" [@showHide]="!isShowingAbstract ? 'show' : 'hide'">
+        <div class="card__abstract--noShowAbstract" [@showHide]="articleList[i].isShowingAbstract ? 'show' : 'hide'">
           Please, click on 'Show Abstract
         </div>
       </div>
@@ -36,8 +36,8 @@
       <div class="card__buttons">
         <button *ngIf="!articleList[i].isEditing" mat-raised-button color="primary" (click)="editArticle(i)">Edit</button>
         <button *ngIf="articleList[i].isEditing" mat-raised-button color="primary" (click)="addEditArticle(i)">Save Changes</button>
-        <button mat-raised-button color="{{isShowingAbstract ? 'basic' : 'accent'}}" (click)="showAbstract()">
-          {{isShowingAbstract ? 'Hide Abstract' : 'Show Abstract'}}
+        <button mat-raised-button color="{{!articleList[i].isShowingAbstract ? 'basic' : 'accent'}}" (click)="showAbstract(i)">
+          {{!articleList[i].isShowingAbstract ? 'Hide Abstract' : 'Show Abstract'}}
         </button>
         <button *ngIf="articleList[i].isEditing" mat-raised-button color="warm" (click)="cancelEdit(i)">Cancel</button>
       </div>

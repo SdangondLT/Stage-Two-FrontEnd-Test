@@ -21,7 +21,8 @@ export class FormComponent implements OnInit, OnChanges {
       title: '',
       journal: '',
       abstract: '',
-      isEditing: false
+      isEditing: false,
+      isShowingAbstract: true
     }
     this.articleTitle = '';
     this.articleJournal = '';
@@ -49,7 +50,8 @@ export class FormComponent implements OnInit, OnChanges {
       title: this.articleTitle,
       journal: this.articleJournal,
       abstract: this.articleAbstract,
-      isEditing: false
+      isEditing: false,
+      isShowingAbstract: true
     }
     this.addArticleEmitter.emit(payload);
     this.articleTitle = '';

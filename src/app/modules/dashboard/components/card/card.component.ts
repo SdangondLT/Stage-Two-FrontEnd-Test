@@ -27,9 +27,10 @@ import { ThisReceiver } from '@angular/compiler';
 export class CardComponent implements OnChanges {
 
   article: ArticleModel;
-  isShowingAbstract: boolean;
+  // isShowingAbstract: boolean;
   @Input() articleList: ArticleModel[];
   @Output() editArticleEmitter =  new EventEmitter<number>();
+  @Output() showAbstractEmitter =  new EventEmitter<number>();
   @Output() addEditArticleEmitter =  new EventEmitter<ArticleModel>();
   @Output() cancelEditingEmitter =  new EventEmitter<number>();
   @Output() deleteCardEmitter =  new EventEmitter<number>();
@@ -38,7 +39,7 @@ export class CardComponent implements OnChanges {
 
   constructor(private fb: FormBuilder) {
 
-    this.isShowingAbstract = true;
+    //this.isShowingAbstract = true;
 
     this.cardForm = this.fb.group({
       articles: this.fb.array([]),
@@ -58,7 +59,6 @@ export class CardComponent implements OnChanges {
   }
 
   ngOnInit(): void{
-
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -85,7 +85,8 @@ export class CardComponent implements OnChanges {
       title: this.getArticles.at(index).value.title,
       journal: this.getArticles.at(index).value.journal,
       abstract: this.getArticles.at(index).value.abstract,
-      isEditing: false
+      isEditing: false,
+      isShowingAbstract: false,
     }
     this.addEditArticleEmitter.emit(this.article);
   }
@@ -99,7 +100,7 @@ export class CardComponent implements OnChanges {
     this.deleteCardEmitter.emit(index);
   }
 
-  showAbstract(){
-    this.isShowingAbstract = !this.isShowingAbstract;
+  showAbstract(index: number){
+    this.showAbstractEmitter.emit(index);
   }
 }

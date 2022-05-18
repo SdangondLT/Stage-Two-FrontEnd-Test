@@ -4,6 +4,7 @@ export interface ArticleModel {
   journal: string;
   abstract: string;
   isEditing: boolean;
+  isShowingAbstract: boolean;
 }
 
 export interface ArticleResponseModel {

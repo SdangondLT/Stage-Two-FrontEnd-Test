@@ -8,6 +8,7 @@
     <app-card
       [articleList]="articleList"
       (editArticleEmitter)="editArticle($event)"
+      (showAbstractEmitter)="showAbstract($event)"
       (addEditArticleEmitter)="addEditArticle($event)"
       (cancelEditingEmitter)="cancelEditing($event)"
       (deleteCardEmitter)="deleteCard($event)"

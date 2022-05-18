@@ -20,7 +20,8 @@ export class DashboardComponent implements OnInit {
       title: "",
       journal: "",
       abstract: "",
-      isEditing: false
+      isEditing: false,
+      isShowingAbstract: false,
     };
   }
 
@@ -33,7 +34,8 @@ export class DashboardComponent implements OnInit {
             title: element.title_display,
             journal: element.journal,
             abstract: element.abstract[0],
-            isEditing: false
+            isEditing: false,
+            isShowingAbstract: false
           }
           return Object.assign({}, payload);
         })
@@ -59,17 +61,23 @@ export class DashboardComponent implements OnInit {
       title: '',
       journal: '',
       abstract: '',
-      isEditing: false
+      isEditing: false,
+      isShowingAbstract: false
     };
   }
 
   addArticle(payload: ArticleModel){
     const articleId = Object.assign(payload, {id: this.articleList.length})
     this.articleList.push(articleId);
-    console.log('this.articleList', this.articleList)
   }
 
   deleteCard(index: number){
     this.articleList.splice(index, 1);
+  }
+
+  showAbstract(index: number){
+    this.articleList[index].isShowingAbstract = !this.articleList[index].isShowingAbstract;
+    this.editingArticle = this.articleList[index];
+    console.log('index', index)
   }
 }
