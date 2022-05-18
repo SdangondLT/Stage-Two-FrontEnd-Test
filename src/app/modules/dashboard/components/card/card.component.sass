@@ -1,22 +1,38 @@
-.card
-  display: flex
-  flex-direction: column
-  justify-content: space-between
-  box-shadow: rgba(99, 99, 99, 0.2) 0 2px 8px 0
-  padding: 15px
-  &__header
-    display: flex
-    flex-direction: row
-  &__title--subtitle
+.formGroup
+  display: grid
+  grid-template-columns: repeat(3, 1fr)
+  grid-template-rows: repeat(4, 1fr)
+  grid-column-gap: 15px
+  grid-row-gap: 15px
+  font-size: 1.2em
+  .formArray
+    box-shadow: rgba(99, 99, 99, 0.2) 0 2px 8px 0
+    padding: 30px
+    &__border--red
+      box-shadow: rgb(249, 11, 11) 0 2px 8px 0
+
+.card__header
+  display: grid
+  grid-template-columns: repeat(1, 13fr 1fr)
+  grid-template-rows: 1fr
+  &--title
     display: flex
     flex-direction: column
-  &__buttons
-    display: flex
-    flex-direction: row
-    gap: 10px
-  &__close
+  &--close
     cursor: pointer
 
-.card__border--red
-  box-shadow: rgb(249, 11, 11) 0 2px 8px 0
+.image__container
+  &--plos
+    width: -webkit-fill-available
 
+.card__abstract
+  &--noShowAbstract
+    position: absolute
+    top: 139%
+    font-size: 1.5em
+
+.card__buttons
+  display: grid
+  grid-template-columns: repeat(3, 1fr)
+  grid-template-rows: 1fr
+  grid-column-gap: 30px

@@ -1,7 +1,8 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { FormBuilder, FormGroup } from '@shared/angular-material/index';
+import { FormArray, FormBuilder, FormGroup } from '@shared/angular-material/index';
 import { ArticleModel } from '@app-models/card-article.model';
+import { ThisReceiver } from '@angular/compiler';
 
 @Component({
   selector: 'app-card',
@@ -25,79 +26,80 @@ import { ArticleModel } from '@app-models/card-article.model';
 
 export class CardComponent implements OnChanges {
 
-  dataSource: ArticleModel;
+  article: ArticleModel;
   isShowingAbstract: boolean;
-  @Input() article: ArticleModel;
+  @Input() articleList: ArticleModel[];
   @Output() editArticleEmitter =  new EventEmitter<number>();
+  @Output() addEditArticleEmitter =  new EventEmitter<ArticleModel>();
   @Output() cancelEditingEmitter =  new EventEmitter<number>();
   @Output() deleteCardEmitter =  new EventEmitter<number>();
 
-  cardForm = this.fb.group({
-    title: [''],
-    journal: [''],
-    abstract: ['']
-  });
-
+  cardForm: FormGroup;
 
   constructor(private fb: FormBuilder) {
-    this.article = {
-      id: 0,
-      title: "",
-      journal: "",
-      abstract: "",
-      isEditing: false
-    }
-    this.dataSource = {
-      id: 0,
-      title: "",
-      journal: "",
-      abstract: "",
-      isEditing: false
-    };
+
     this.isShowingAbstract = true;
+
+    this.cardForm = this.fb.group({
+      articles: this.fb.array([]),
+    });
   }
 
-  ngOnInit(): void{
-    this.dataSource = this.article;
+  get getArticles() {
+    return this.cardForm.get('articles') as FormArray;
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if(changes['article']){
-      this.dataSource = changes['article'].currentValue;
-      this.modifyCard(this.dataSource);
-    }
-  }
-
-  modifyCard(data: ArticleModel){
-    return this.cardForm = this.fb.group({
+  addCard(data: ArticleModel){
+    return this.fb.group({
       title: [data.title],
       journal: [data.journal],
       abstract: [data.abstract]
     });
   }
 
+  ngOnInit(): void{
 
-  getImageSource(){
-    return this.article.journal.toLowerCase().includes("plos one") ? "assets/img/plos-one.png" : "assets/img/not_found.png"
   }
 
-  editArticle(){
-    this.editArticleEmitter.emit(this.article.id);
+  ngOnChanges(changes: SimpleChanges): void {
+    if(changes['articleList'].currentValue){
+      this.articleList = changes['articleList'].currentValue;
+      this.getArticles.clear();
+      this.articleList.forEach((article) => {
+        this.getArticles.push(this.addCard(article))
+      })
+    }
   }
 
-  cancelEdit(){
-    this.cancelEditingEmitter.emit(this.article.id);
+  getImageSource(index: number){
+    return this.articleList[index].journal.toLowerCase().includes("plos one") ? "assets/img/plos-one.png" : "assets/img/not_found.png"
   }
 
-  deleteCard(){
-    this.deleteCardEmitter.emit(this.article.id);
+  editArticle(index: number){
+    this.editArticleEmitter.emit(index);
+  }
+
+  addEditArticle(index: number){
+    this.article = {
+      id: index,
+      title: this.getArticles.at(index).value.title,
+      journal: this.getArticles.at(index).value.journal,
+      abstract: this.getArticles.at(index).value.abstract,
+      isEditing: false
+    }
+    this.addEditArticleEmitter.emit(this.article);
+  }
+
+  cancelEdit(index: number){
+    this.cancelEditingEmitter.emit(index);
+  }
+
+  deleteCard(index: number){
+    this.getArticles.removeAt(index);
+    this.deleteCardEmitter.emit(index);
   }
 
   showAbstract(){
     this.isShowingAbstract = !this.isShowingAbstract;
   }
-
-  // get title() {
-  //   return this.cardForm.get('title');
-  // }
 }

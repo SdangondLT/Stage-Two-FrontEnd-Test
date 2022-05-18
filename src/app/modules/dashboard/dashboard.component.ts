@@ -41,15 +41,18 @@ export class DashboardComponent implements OnInit {
     )
   }
 
-  editArticle(id: number){
-    console.log("id", id);
-    const index = this.articleList.findIndex((element) => element.id === id);
+  editArticle(index: number){
     this.articleList[index].isEditing = true;
     this.editingArticle = this.articleList[index];
   }
 
-  cancelEditing(id: number){
-    const index = this.articleList.findIndex((element) => element.id === id);
+  addEditArticle(article: ArticleModel){
+    console.log('article', article)
+    this.articleList.splice(article.id, 1, article);
+    this.articleList[article.id].isEditing = false;
+  }
+
+  cancelEditing(index: number){
     this.articleList[index].isEditing = false;
     this.editingArticle = {
       id: 0,
@@ -66,8 +69,7 @@ export class DashboardComponent implements OnInit {
     console.log('this.articleList', this.articleList)
   }
 
-  deleteCard(id: number){
-    const index = this.articleList.findIndex((element) => element.id === id);
+  deleteCard(index: number){
     this.articleList.splice(index, 1);
   }
 }
